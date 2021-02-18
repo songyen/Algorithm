@@ -1,5 +1,4 @@
-#Directories
-out/production/Algorithm
+*.class
 # Default ignored files
 /shelf/
 /workspace.xml
