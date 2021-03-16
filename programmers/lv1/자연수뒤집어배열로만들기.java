@@ -1,7 +1,5 @@
 package lv1;
 
-import java.util.Arrays;
-
 public class 자연수뒤집어배열로만들기 {
     public static void main(String[] args) {
         int[] arr = solution(12345);
@@ -11,7 +9,6 @@ public class 자연수뒤집어배열로만들기 {
     }
     public static int[] solution(long n) {
         String[] s = String.valueOf(n).split("");
-        Arrays.sort(s);
 
         int[] answer = new int[s.length];
         int index=0;
