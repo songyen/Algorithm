@@ -1,6 +1,6 @@
 package lv1;
 
-public class 체육복 {
+public class 체육복_그리디 {
     public static void main(String[] args) {
         System.out.println(solution(5,new int[]{2,4},new int[]{1,3,5}));
     }
