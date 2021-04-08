@@ -1,5 +1,7 @@
 package lv2;
 
+import java.util.Arrays;
+
 public class n진수게임 {
     public static void main(String[] args) {
         System.out.println(solution(11,8,5,4));
@@ -19,10 +21,6 @@ public class n진수게임 {
 
             }
         }
-        for(String s: array){
-            System.out.print(s+" ");
-        }
-        System.out.println();
 
         String result = "";
         int answer = 0;
