@@ -7,26 +7,19 @@ public class 짝지어제거하기 {
         System.out.println(solution("baabaa"));
     }
     public static int solution(String s){
-        List<Character> list = new ArrayList<>();
-        for(int i=0;i<s.length();i++){
-            list.add(s.charAt(i));
+        Stack<Character> stack = new Stack<>();
+        stack.push(' ');
+        stack.push(s.charAt(0));
+
+        for(int i=1;i<s.length();i++){
+            if(stack.peek() == s.charAt(i)) {
+                stack.pop();
+            }else{
+                stack.push(s.charAt(i));
+            }
         }
 
-        for(int i=0;i<list.size();){
-            if(i == list.size()-1) break;
-            if(list.get(i) == list.get(i+1)){
-                System.out.print(i+", ");
-                list.remove(i);
-                list.remove(i+1);
-                for(Character c : list){
-                    System.out.print(c);
-                }
-                System.out.println();
-                i = 0;
-            }else i++;
-        }
-
-        if(list.size() == 0) return 1;
+        if(stack.size() == 1) return 1;
         else return 0;
     }
 }
