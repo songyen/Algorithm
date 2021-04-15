@@ -4,66 +4,70 @@ import java.util.*;
 
 public class 방금그곡 {
     public static void main(String[] args) {
-        System.out.println(solution("CC#BCC#BCC#BCC#B", new String[]{"03:00,03:30,FOO,CC#B", "04:00,04:08,BAR,CC#BCC#BCC#B"}));
+        방금그곡 test = new 방금그곡();
+        System.out.println(test.solution("CC#BCC#BCC#BCC#B", new String[]{"03:00,03:30,FOO,CC#B", "04:00,04:08,BAR,CC#BCC#BCC#B"}));
     }
-    public static String solution(String m, String[] musicinfos) {
-        m = sheetMusic(m);
-        int playingTime , hour, min = 0;
-        String sound = "";
-        List<Integer> select = new ArrayList<>();
+    public String solution(String m, String[] musicinfos) {
+        m = getMelody(m);
+        int playingTime = 0;
+        String melody = "";
+        List<Info> selected = new ArrayList<>();
         for(int i=0;i<musicinfos.length;i++){
-            sound = musicinfos[i].split(",")[3];
-            musicinfos[i] = musicinfos[i].replace(sound, sheetMusic(sound));
-            sound = musicinfos[i].split(",")[3];
+            String[] t = musicinfos[i].split(",");
+            Info info  = new Info(i, getPlayingTime(t[0], t[1]), t[2], getMelody(t[3]));
 
-            hour = Integer.parseInt(musicinfos[i].split(",")[1].split(":")[0]) - Integer.parseInt(musicinfos[i].split(",")[0].split(":")[0]);
-            min = Integer.parseInt(musicinfos[i].split(",")[1].split(":")[1]) - Integer.parseInt(musicinfos[i].split(",")[0].split(":")[1]);
-            playingTime = hour*60 + min;
-            musicinfos[i] = musicinfos[i].replace(musicinfos[i].split(",")[0]+","+musicinfos[i].split(",")[1], Integer.toString(playingTime));
-
-            if(sound.length() < playingTime){
-                for(int j=0;j<playingTime/sound.length()-1;j++){
-                    musicinfos[i] += sound;
-                }
-            }else{
-                musicinfos[i] = musicinfos[i].replace(sound, sound.substring(0,playingTime));
-            }
-
-            if(musicinfos[i].split(",")[2].contains(m)) {
-                select.add(i);
-            }
+            if (info.totalMelody.length() >= m.length() && info.totalMelody.contains(m))
+                selected.add(info);
         }
 
-        for(String s : musicinfos){
-            System.out.println(s);
-        }
-
-        int time, longPlayingTime = 0;
         String answer = "";
-        if(select.size() > 1){
-            longPlayingTime = Integer.parseInt(musicinfos[select.get(0)].split(",")[0]);
-            for(int i=1;i<select.size();i++){
-                time = Integer.parseInt(musicinfos[select.get(i)].split(",")[0]);
-                if(Integer.parseInt(musicinfos[select.get(i)].split(",")[0]) == Math.max(longPlayingTime,Integer.parseInt(musicinfos[select.get(i)].split(",")[0]))){
-                    longPlayingTime = Integer.parseInt(musicinfos[select.get(i)].split(",")[0]);
-                    answer = musicinfos[select.get(i)].split(",")[1];
-                }else{
-                    answer = musicinfos[select.get(0)].split(",")[1];
-                }
-
-            }
-        }else if(select.size() == 1){
-            answer = musicinfos[select.get(0)].split(",")[1];
+        if(selected.size() > 1){
+            selected.sort((o1, o2) -> {
+                if(o1.playingTime == o2.playingTime){
+                    return o1.index - o2.index;
+                }else return o2.playingTime - o1.playingTime;
+            });
+            answer = selected.get(0).music;
+        }else if(selected.size() == 1){
+            answer = selected.get(0).music;
         }else{
             answer = "(None)";
         }
 
         return answer;
     }
-    public static String sheetMusic(String sound){
-        for(int i=0;i<sound.length();i++){
-            if(sound.charAt(i) == '#') sound = sound.replaceFirst("[A-G]#",sound.substring(i-1,i).toLowerCase());
+    public String getMelody(String melody){
+        for(int i=0;i<melody.length();i++){
+            if(melody.charAt(i) == '#') melody = melody.replaceFirst("[A-G]#",melody.substring(i-1,i).toLowerCase());
         }
-        return sound;
+        return melody;
+    }
+    public int getPlayingTime(String start, String finish){
+        int hour = Integer.parseInt(finish.split(":")[0]) - Integer.parseInt(start.split(":")[0]);
+        int min = Integer.parseInt(finish.split(":")[1]) - Integer.parseInt(start.split(":")[1]);
+        return hour*60 + min;
+    }
+    class Info{
+        private int index;
+        private int playingTime;
+        private String music;
+        private String totalMelody;
+
+        public Info(int index, int playingTime, String music, String melody){
+            this.index = index;
+            this.playingTime = playingTime;
+            this.music = music;
+            totalMelody = getTotalMelody(melody, playingTime);
+        }
+
+        public String getTotalMelody(String melody, int playingTime){
+            if (melody.length() > playingTime)
+                return melody.substring(0, playingTime);
+            StringBuilder sb = new StringBuilder();
+            while (sb.length() < playingTime) {
+                sb.append(melody);
+            }
+            return sb.substring(0, playingTime);
+        }
     }
 }
