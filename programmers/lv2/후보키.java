@@ -11,56 +11,57 @@ public class 후보키 {
     }
 
     private int colSize;
-    private int rolSize;
+    private int rowSize;
     private String[][] table;
     private List<Integer> candidateKey;
 
     public int solution(String[][] relation) {
         colSize = relation[0].length;
-        rolSize = relation.length;
+        rowSize = relation.length;
         table = relation;
         candidateKey = new ArrayList<>();
 
-        for(int i=0;i<(1<<colSize);i++){
+        for(int i=1;i<(1<<colSize);i++){
             if(!isUnique(i)) continue;
             if(!isMinimality(i)) continue;
 
-            candidateKey.add(i); //6
+            candidateKey.add(i);
         }
 
         return candidateKey.size();
     }
 
     private boolean isMinimality(int set) {
-        for(Integer key : candidateKey){
-            if(candidateKey.contains(set)) return false;
+        for(int key : candidateKey){
+            if((key & set) == key) return false;
         }
 
         return true;
     }
 
+
     private boolean isUnique(int index) {
-        List<Integer> set = makeSet(index); // 1, 2
-        HashSet<String> tempColums = new HashSet<>();
-        StringBuffer sb = new StringBuffer();
-
-        for(int i=0;i<rolSize;i++){
-
-            for(int j : set){
-                sb.append(table[i][j]+" ");
+        List<Integer> set = makeSet(index);
+        HashSet<String> hashSet = new HashSet<>();
+        for (int i = 0; i < rowSize; i++){
+            StringBuilder sb = new StringBuilder();
+            for (int j : set) {
+                sb.append(table[i][j]).append(" ");
             }
 
-            tempColums.add(sb.toString());
+            hashSet.add(sb.toString());
         }
 
-        return tempColums.size() == rolSize;
+        return hashSet.size() == rowSize;
     }
 
     private List<Integer> makeSet(int set) {
         List<Integer> keySet = new ArrayList<>();
         int index = 1 << colSize-1;
         for(int i=0;i<colSize;i++){
-            if((set & index>>i) != 1) keySet.add(i);
+            if((set & index>>i) != 0) {
+                keySet.add(i);
+            }
         }
 
         return keySet;
