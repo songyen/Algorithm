@@ -7,35 +7,34 @@ public class 프린터 {
         System.out.println(solution(new int[]{2,1,3,2},2));
     }
     public static int solution(int[] priorities, int location) {
-        LinkedList<Info> list = new LinkedList<>();
+        Queue<Info> pool = new LinkedList<>();
         int index = 0;
         for(int i : priorities){
-            list.add(new Info(index++,i));
+            pool.add(new Info(index++,i));
         }
 
-        LinkedList<Info> deque = new LinkedList<>(list);
-        List<Info> result = new ArrayList<>();
-        int first = 0;
-        int move = 1;
-        ListIterator<Info> iterator = deque.listIterator();
-        while(iterator.hasNext()){
-            first = iterator.next().priority;
-            if(first != Math.max(iterator.next().priority, first)){
-                move++;
-                Info lowerPriority = deque.removeFirst();
-                deque.addLast(lowerPriority);
-                for(int i=0;i<move;i++) {
-                    iterator.previous();
+        List<Info> printed = new LinkedList<>();
+        int first;
+        boolean flag;
+        while(!pool.isEmpty()){
+            flag = false;
+            first = pool.peek().priority;
+            for(Info i : pool){
+                if(first < i.priority){
+                    flag = true;
                 }
-                break;
+            }
+
+            if(flag){
+                pool.add(pool.poll());
             }else{
-                result.add(deque.removeFirst());
+                printed.add(pool.poll());
             }
         }
 
         int answer = 0;
-        for(int i=0;i< result.size();i++){
-            if(result.get(i).index == location){
+        for(int i=0;i< printed.size();i++){
+            if(printed.get(i).index == location){
                 answer = i+1;
             }
         }
