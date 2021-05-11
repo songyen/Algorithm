@@ -1,3 +1,6 @@
+/*
+* Programmers SummerCoding Challenge Test2 (100/100)
+ */
 package lv2;
 
 import java.util.ArrayList;

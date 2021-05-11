@@ -1,3 +1,6 @@
+/*
+ * Programmers SummerCoding Challenge Test3 (15/100)
+ */
 package lv2;
 
 import java.util.*;
