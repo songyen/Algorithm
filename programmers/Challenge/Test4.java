@@ -1,7 +1,7 @@
 /*
 * Programmers 월간코드챌린지 시즌2 No.1 (100/100)
  */
-package lv2;
+package Challenge;
 
 public class Test4 {
     public static void main(String[] args) {

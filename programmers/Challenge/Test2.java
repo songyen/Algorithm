@@ -1,7 +1,7 @@
 /*
 * Programmers SummerCoding Challenge Test2 (100/100)
  */
-package lv2;
+package Challenge;
 
 import java.util.ArrayList;
 import java.util.Comparator;

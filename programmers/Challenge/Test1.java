@@ -1,7 +1,7 @@
 /*
 * KaKao InternShip CodingTest Test1 [문자열문제]
  */
-package lv2;
+package Challenge;
 
 import java.util.HashMap;
 
