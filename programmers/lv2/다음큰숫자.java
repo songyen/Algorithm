@@ -5,22 +5,12 @@ import org.junit.Test;
 
 public class 다음큰숫자 {
     public int solution(int n) {
-        int num = binary(n);
+        int bitCount =Integer.bitCount(n);
         for(int i=n+1;;i++){;//n보다 큰 수의 (2진수일 때) 1의 개수
-            if(num == binary(i)) {
+            if(bitCount == Integer.bitCount(i)) {
                 return i;
             }
         }
-    }
-
-    private int binary(int n){//2진수일 때, 1의 개수 구하기
-        String[] strings = Integer.toBinaryString(n).split("");
-
-        int num = 0;
-        for(String s : strings){
-            if(s.equals("1")) num++;
-        }
-        return num;
     }
 
     @Test
