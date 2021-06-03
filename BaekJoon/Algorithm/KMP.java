@@ -1,6 +1,6 @@
 /*
 * reference : https://bowbowbow.tistory.com/6#comment5168448, https://imnotabear.tistory.com/118
-* source : BackJoon 1786번
+* source : BackJoon 1786번 [찾기]
  */
 
 package Algorithm;
