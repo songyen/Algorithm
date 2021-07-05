@@ -9,8 +9,8 @@ public class 전화번호목록 {
     public boolean solution(String[] phone_book) {
         HashSet<String> set = new HashSet<>();
 
-        for(String num : phone_book){
-            set.add(num);
+        for(String prefix : phone_book){
+            set.add(prefix);
         }
 
         for(String num : phone_book){
