@@ -1,5 +1,5 @@
 /*
-*reference : https://2ssue.github.io/algorithm/programmers_42578/
+*reference : https://2ssue.github.io/algorithm/programmers_42578/(의상을 골라입는 경우의 수 공식 참고)
  */
 
 package lv2;
@@ -18,9 +18,9 @@ public class 위장 {
 
         int answer = 1;
         for(String keys : map.keySet()){
-            answer *= map.get(keys)+1;
+            answer *= map.get(keys)+1;//의상 종류별 개수+안 입는 경우의수
         }
-        return answer-1;
+        return answer-1;//아무것도 안 입는 경우의 수는 제외
     }
 
     @Test
