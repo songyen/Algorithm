@@ -17,7 +17,7 @@ public class 다리를지나는트럭 {
         int totalWeights = 0;
 
         for(int i=0;i<truck_weights.length;i++){
-           //새로운 트럭이 진입못하는 경우(weight를 초과한 경우), 진입할 수 있을 때까지 loop반복
+           //새로운 트럭이 진입못하는 경우, 진입할 수 있을 때까지 loop반복
            while(totalWeights+truck_weights[i] > weight || truck.size()+1 > bridge_length) {
                if(truck.size()==bridge_length){//다리가 꽉 차 있는 경우, 가장 먼저 진입한 트럭이 빠져나감
                    totalWeights -= truck.poll();
