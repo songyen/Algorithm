@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.StringTokenizer;
 
-public class 수찾기 {
+public class 해시 {
     public static void main(String[] args) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 
