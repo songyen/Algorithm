@@ -5,12 +5,7 @@ import java.util.*;
 public class 디스크컨트롤러 {
     public int solution(int[][] jobs) {
         Queue<Job> queue = new LinkedList<>();
-        Arrays.sort(jobs, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] o1, int[] o2) {
-                return o1[0] - o2[0];//요청시간이 짧은 순
-            }
-        });
+        Arrays.sort(jobs, Comparator.comparingInt(o -> o[0]));
 
         for(int i=0;i<jobs.length;i++){
             queue.add(new Job(jobs[i][0],jobs[i][1]));//요청시간이 짧은 순서대로 대기 큐에 작업들이 삽입됨
