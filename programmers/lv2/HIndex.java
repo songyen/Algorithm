@@ -15,5 +15,4 @@ public class HIndex {
             }
             return answer;
         }
-    }
 }
