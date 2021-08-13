@@ -1,3 +1,6 @@
+/*
+ * source : BackJoon 15649번 [N과 M(1)]
+ */
 package Algorithm;
 
 import java.io.BufferedReader;
