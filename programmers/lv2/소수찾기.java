@@ -12,7 +12,7 @@ public class 소수찾기 {
     static boolean[] primeList;
 
     public static void main(String[] args) {
-        System.out.println(solution("011"));
+        System.out.println(solution("0111111"));
     }
     public static int solution(String numbers) {
         str = numbers.split("");
@@ -20,11 +20,9 @@ public class 소수찾기 {
         depth = str.length;
         bt(0);
 
-        List<Integer> list = new ArrayList<>();
-        for(int i : numSet){
-            list.add(i);
-        }
-        getPrime(list.get(list.size()-1));
+        List<Integer> list = new ArrayList<>(numSet);
+        Collections.sort(list, Comparator.reverseOrder());
+        getPrime(list.get(0));
         int answer = 0 ;
         for(int i : numSet){
             if(primeList[i]) {
