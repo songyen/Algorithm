@@ -1,21 +1,19 @@
 package lv2;
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class 구명보트 {
     public int solution(int[] people, int limit) {
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());//최대힙
-        PriorityQueue<Integer> minHeap = new PriorityQueue<>();//최소힙
-        for(int i : people){
-            maxHeap.add(i);
-            minHeap.add(i);
+        Deque<Integer> desc = new LinkedList<>();
+        Arrays.sort(people);
+        for(int i= people.length-1;i>=0;i--){
+            desc.add(people[i]);
         }
 
         int answer = 0;
-        while(maxHeap.size()!=0){
-            if(maxHeap.peek()+minHeap.peek()<=limit) maxHeap.remove(minHeap.poll());
-            minHeap.remove(maxHeap.poll());
+        while(desc.size()!=0){
+            if(desc.peekFirst()+desc.peekLast()<=limit) desc.pollLast();
+            desc.pollFirst();
             answer++;
         }
         return answer;
