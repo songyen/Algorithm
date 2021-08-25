@@ -17,5 +17,15 @@ public class 구명보트 {
             answer++;
         }
         return answer;
+        /*배열로만 구현 가능(더 효율적인 코드)
+        int answer = 0;
+        Arrays.sort(people);
+        int min = 0;
+        for (int max = people.length - 1; min <= max; max--){
+            if (people[min] + people[max] <= limit) min++;
+            answer++;
+        }
+        return answer;
+         */
     }
 }
