@@ -6,10 +6,7 @@ package Algorithm;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class MSTByPrim {
     public static class Edge implements Comparable<Edge>{
@@ -27,18 +24,18 @@ public class MSTByPrim {
         }
     }
 
-    static ArrayList<Edge>[] list;//각 노드의 연결상태를 저장
+    static ArrayList<Edge>[] adj;//각 노드의 연결상태를 저장
     static boolean[] visit;//방문체크용 배열
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int node = Integer.parseInt(br.readLine());
         int edge = Integer.parseInt(br.readLine());
 
-        list = new ArrayList[node+1];
+        adj = new ArrayList[node+1];
         visit = new boolean[node+1];
 
         for(int i=1;i<=node;i++){//list 배열 초기화
-            list[i] = new ArrayList<>();
+            adj[i] = new ArrayList<>();
         }
 
         String[] inputStr;
@@ -47,8 +44,8 @@ public class MSTByPrim {
             int start = Integer.parseInt(inputStr[0]);
             int end = Integer.parseInt(inputStr[1]);
             int cost = Integer.parseInt(inputStr[2]);
-            list[start].add(new Edge(start, end, cost));
-            list[end].add(new Edge(start,end,cost));
+            adj[start].add(new Edge(start, end, cost));
+            adj[end].add(new Edge(start,end,cost));
         }
 
         br.close();
@@ -67,7 +64,7 @@ public class MSTByPrim {
             int curNode = queue.poll();
             visit[curNode] = true;
 
-            for(Edge edge : list[curNode]){
+            for(Edge edge : adj[curNode]){
                 if(!visit[edge.end])
                     priorityQueue.add(edge);
             }
