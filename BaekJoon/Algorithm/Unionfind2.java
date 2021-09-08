@@ -49,15 +49,15 @@ public class Unionfind2 {
     private static int union(int a, int b) {
         a = find(a);
         b = find(b);
-        if (a != b) {
-            if (a < b) {
-                parent[b] = a; //집합 union
-                count[a] += count[b]; //친구수 union
-                return count[a];
-            } else {
-                parent[a] = b;
-                count[b] += count[a];
+        if(a!=b){
+            if(count[a] < count[b]){
+                parent[a] =b;
+                count[b]+=count[a];
                 return count[b];
+            }else{
+                parent[b] = a;
+                count[a]+=count[b];
+                return count[a];
             }
         }
         return count[a];
