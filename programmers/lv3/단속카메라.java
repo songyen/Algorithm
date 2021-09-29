@@ -1,47 +1,27 @@
+/*
+* reference : https://programmers.co.kr/questions/14636
+ */
 package lv3;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.PriorityQueue;
+import java.util.*;
+
 
 public class 단속카메라 {
-    public class Car implements Comparable<단속카메라.Car>{
-        int index;
-        ArrayList<Integer> list;
-        public Car(int index, ArrayList<Integer> list){
-            this.index = index;
-            this.list = list;
-        }
-        @Override
-        public int compareTo(Car o) {
-            return o.list.size() - this.list.size();
-        }
-    }
     public int solution(int[][] routes) {
-        PriorityQueue<Car> priorityQueue = new PriorityQueue<>();
-        for(int i=0;i<routes.length;i++){
-            int end = routes[i][1];
-            ArrayList<Integer> list = new ArrayList<>();
-            for(int j=0;j<routes.length;j++){
-                if(i!=j && routes[j][0] <= end && end <= routes[j][1]){
-                    list.add(j);
-                }
-            }
-            priorityQueue.add(new Car(i, list));
+        List<int[]> list = new ArrayList<>();//최소 한번 촬영된 차량
+        for(int[] route : routes){
+            list.add(route);
         }
 
-        HashSet<Integer> set = new HashSet<>();
+        Collections.sort(list, (o1, o2) -> o1[1] - o2[1]);
         int camera = 0;
-        while(!priorityQueue.isEmpty()){
-            Car car = priorityQueue.poll();
-            if(set.contains(car.index)){
-                car.list.clear();
-                continue;
-            }else camera++;
-
-            if(!car.list.isEmpty()) {
-                for (int index : car.list) {
-                    set.add(index);
+        while(!list.isEmpty()){
+            int position = list.get(0)[1];//가장 빠른 진출지점
+            camera++;
+            for(int i=0;i<list.size();i++){
+                if(list.get(i)[0]<=position){
+                    list.remove(i);
+                    i--;
                 }
             }
         }
