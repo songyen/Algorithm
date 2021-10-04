@@ -1,45 +1,41 @@
 /*
-* reference : https://velog.io/@jwkim/DFS-n-expression
+* reference : https://dheldh77.tistory.com/entry/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-N%EC%9C%BC%EB%A1%9C-%ED%91%9C%ED%98%84
  */
 package lv3;
 
+import java.util.HashSet;
+
 public class N으로표현 {
-    public static void main(String[] args) {
-        N으로표현 test = new N으로표현();
-        System.out.println(test.solution(5, 12));
-    }
-
-    private int n;
-    private int target;
-    private int answer = Integer.MAX_VALUE;
-
     public int solution(int N, int number) {
-        n = N;
-        target = number;
-        dfs(0, 0);
-        return answer == Integer.MAX_VALUE ? -1 : answer;
-    }
+        if(N==number) return 1;
 
-    private void dfs(int count, int prev) {
-        if (count > 8) {
-            answer = -1;
-            return;
+        int answer = -1;
+        HashSet<Integer>[] setArr = new HashSet[9];
+        for(int i=0;i<setArr.length;i++){
+            setArr[i] = new HashSet<>();
         }
-
-        if (prev == target) {
-            answer = Math.min(answer, count);
-            return;
+        setArr[1].add(N);
+        int n = N;
+        for(int i=2;i<=8;i++){
+            n = n*10 + N;
+            setArr[i].add(nn);
+            for(int j=1;j<=i-1;j++){
+                for(int op1 : setArr[j]){
+                    for(int op2 : setArr[i-j]){
+                        setArr[i].add(op1+op2);
+                        setArr[i].add(op1-op2);
+                        setArr[i].add(op1*op2);
+                        if(op2!= 0) setArr[i].add(op1/op2);
+                    }
+                }
+            }
+            if(setArr[i].contains(number)) {
+                answer = i;
+                break;
+            }
         }
+        return answer;
 
-        int tempN = n;
-        for (int i = 0; i < 8 - count; i++) {
-            int newCount = count + i + 1;
-            dfs(newCount, prev + tempN);
-            dfs(newCount, prev - tempN);
-            dfs(newCount, prev / tempN);
-            dfs(newCount, prev * tempN);
 
-            tempN = tempN * 10 + n;
-        }
     }
 }
