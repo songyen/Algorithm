@@ -15,9 +15,9 @@ public class N으로표현 {
             setArr[i] = new HashSet<>();
         }
         setArr[1].add(N);
-        int n = N;
+        int nn = N;
         for(int i=2;i<=8;i++){
-            n = n*10 + N;
+            nn = nn*10 + N;
             setArr[i].add(nn);
             for(int j=1;j<=i-1;j++){
                 for(int op1 : setArr[j]){
