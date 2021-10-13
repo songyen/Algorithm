@@ -20,7 +20,7 @@ public class 네트워크 {
 
         HashSet<Integer> set = new HashSet<>();
         for(int i=0;i<n;i++){
-            set.add(parent[i]);
+            set.add(find(parent[i]));
         }
         return set.size();
     }
@@ -31,11 +31,12 @@ public class 네트워크 {
     }
 
     public void union(int i, int j){
-        if(parent[i]==parent[j]) return;
-        int a = find(i);
-        int b = find(j);
-        if(a!=b){
-            parent[b] = a;
+        i = find(i);
+        j = find(j);
+        if(i!=j){
+            if(i>j){
+                parent[i] = j;
+            }else parent[j] = i;
         }
     }
 }
