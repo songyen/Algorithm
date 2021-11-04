@@ -1,6 +1,7 @@
 package 힙;
 
 import java.io.*;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class 최대힙 {
