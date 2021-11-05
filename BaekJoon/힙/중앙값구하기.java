@@ -1,13 +1,10 @@
 package 힙;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class 중앙값구하기 {
-    private static List<Integer> list;
+    private static PriorityQueue<Integer> pq;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -17,11 +14,11 @@ public class 중앙값구하기 {
             StringBuilder sb = new StringBuilder();
             int n = Integer.parseInt(br.readLine());
             bw.write((n/2+1)+"\n");
-            list = new ArrayList<>();
             int cnt = 0;
+            pq = new PriorityQueue<>();
             for(int j=0;j<n;j++){
                 if(j%10==0) st = new StringTokenizer(br.readLine());
-                list.add(Integer.parseInt(st.nextToken()));
+                pq.add(Integer.parseInt(st.nextToken()));
                 if(j%2==0) {
                     cnt++;
                     if(cnt%10==0) sb.append(center()+"\n");
@@ -35,8 +32,16 @@ public class 중앙값구하기 {
         bw.close();
     }
 
-    private static int center() {
-        Collections.sort(list);
-        return list.get(list.size()/2);
+    public static int center(){
+        Stack<Integer> stack = new Stack<>();
+        int size = pq.size();
+        for(int i=0;i<=size/2;i++){
+            stack.push(pq.poll());
+        }
+        int center = stack.peek();
+        while(!stack.isEmpty()){
+            pq.add(stack.pop());
+        }
+        return center;
     }
 }
