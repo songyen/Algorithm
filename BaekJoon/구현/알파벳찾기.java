@@ -7,13 +7,15 @@ public class 알파벳찾기 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringBuilder sb = new StringBuilder();
-        String s = br.readLine();
-        br.close();
-        for(char i='a';i<='z';i++){
-            String alphabet = String.valueOf(i);
-            if(s.contains(alphabet)) sb.append(s.indexOf(alphabet)+" ");
-            else sb.append("-1 ");
+        int T = Integer.parseInt(br.readLine());
+        while(T --> 0) {
+            String binary = Integer.toBinaryString(Integer.parseInt(br.readLine()));
+            int len = binary.length();
+            for (int i=len-1;i>=0;i--){
+                if(binary.charAt(i)=='1') sb.append(len-1-i+" ");
+            }
         }
+        br.close();
         bw.write(sb.toString().trim());
         bw.flush();
         bw.close();
