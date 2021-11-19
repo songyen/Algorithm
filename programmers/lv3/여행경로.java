@@ -1,24 +1,33 @@
 package lv3;
 
-import java.util.Stack;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class 여행경로 {
+    private boolean[] visited;
+    private ArrayList<String> routes = new ArrayList<>();
+    private String[][] flights;
     public String[] solution(String[][] tickets) {
-        String[] answer = new String[tickets.length+1];
-        int index = 0;
-        answer[index] = "ICN";
-        boolean[] visited = new boolean[tickets.length];
-        Stack<Integer> routes = new Stack<>();
-        while(index!=tickets.length){
-            for(int i=0;i<tickets.length;i++){
-                if(!visited[i] && answer[index].equals(tickets[i][0]) ){
-                    if(!routes.isEmpty() && (tickets[routes.peek()][1].compareTo(tickets[i][1])>0)) routes.pop();
-                    routes.push(i);
-                }
-            }
-            visited[routes.peek()] = true;
-            answer[++index] = tickets[routes.pop()][1];
-        }
+        flights = tickets;
+        visited = new boolean[flights.length+1];
+        dfs("ICN","ICN",1);
+        Collections.sort(routes);
+        String[] answer = routes.get(0).split(" ");
         return answer;
+    }
+
+    public void dfs(String from, String route, int cnt){
+        if(cnt==flights.length+1){
+            routes.add(route);
+            return;
+        }
+        for(int i=0;i<flights.length;i++){
+            if(!visited[i] && flights[i][0].equals(from)){
+                visited[i] = true;
+                dfs(flights[i][1], route+" "+flights[i][1],cnt+1);
+                visited[i] = false;
+            }
+        }
     }
 }
