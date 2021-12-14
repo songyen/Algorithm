@@ -2,7 +2,7 @@
  * reference : https://youngest-programming.tistory.com/458
  * source : BackJoon 4195번 [친구 네트워크]
  */
-package Algorithm;
+package 그래프탐색;
 
 
 import java.util.HashMap;

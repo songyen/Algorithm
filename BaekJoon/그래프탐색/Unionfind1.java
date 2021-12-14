@@ -1,7 +1,7 @@
 /*
  * source : BackJoon 1717번 [집합의 표현]
  */
-package Algorithm;
+package 그래프탐색;
 
 import java.io.*;
 import java.util.StringTokenizer;

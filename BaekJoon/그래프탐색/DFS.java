@@ -3,7 +3,7 @@
 * source : BackJoon 2667번 [단지번호붙이기]
  */
 
-package Algorithm;
+package 그래프탐색;
 
 import java.awt.*;
 import java.io.BufferedReader;

@@ -1,7 +1,7 @@
 /*
  * source : BackJoon 15649번 [N과 M(1)]
  */
-package Algorithm;
+package 백트래킹;
 
 import java.io.BufferedReader;
 import java.io.IOException;

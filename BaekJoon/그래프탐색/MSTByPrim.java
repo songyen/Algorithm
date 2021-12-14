@@ -1,7 +1,7 @@
 /*
  * source : BackJoon 1197번 [최소 스패닝 트리]
  */
-package Algorithm;
+package 그래프탐색;
 
 import java.io.BufferedReader;
 import java.io.IOException;
