@@ -8,8 +8,8 @@ import java.util.*;
 public class 가르침 {
     private static int N, K;
     private static String[] word;
-    private static boolean[] visitied = new boolean[26];
-    private static int[] numbers;
+    private static int mask;
+//    private static boolean[] visitied = new boolean[26];
     private static int max = Integer.MIN_VALUE;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -31,20 +31,52 @@ public class 가르침 {
                 String str = br.readLine().replaceAll("[a,n,t,i,c]", "");
                 word[i] = str;
             }
-            visitied['a'-'a'] = true;
-            visitied['n'-'a'] = true;
-            visitied['t'-'a'] = true;
-            visitied['i'-'a'] = true;
-            visitied['c'-'a'] = true;
-            
+//            visitied['a'-'a'] = true;
+//            visitied['n'-'a'] = true;
+//            visitied['t'-'a'] = true;
+//            visitied['i'-'a'] = true;
+//            visitied['c'-'a'] = true;
             //k-5개의 글자조합
-            numbers = new int[K-5];
-            combination(0,0);
+//            combination(0,0);
+            /*
+            * 비트마스크활용해 글자조합 구하기
+             */
+            mask = 0;
+            mask |= 1<<'a'-'a';
+            mask |= 1<<'n'-'a';
+            mask |= 1<<'t'-'a';
+            mask |= 1<<'i'-'a';
+            mask |= 1<<'c'-'a';
+
+            combination(0, 1, mask);
             System.out.println(max);
         }
         br.close();
     }
 
+
+    private static void combination(int len, int start, int mask) {
+        if(len==K-5){
+            int cnt = 0;
+            for(int i=0;i<N;i++){
+                boolean read = true;
+                for(int j=0;j<word[i].length();j++){
+                    if((mask&(1<<word[i].charAt(j)-'a'))==0){
+                        read = false;
+                        break;
+                    }
+                }
+                if(read) cnt++;
+            }
+            max = Math.max(max, cnt);
+            return;
+        }
+        for(int i=start;i<26;i++){
+            if((mask&(1<<i))!=0) continue;
+            combination(len+1, i+1, mask | 1<<i);
+        }
+    }
+    /* visited배열활용해 글자조합 구하기
     private static void combination(int alpha, int len) {
         if(len==K-5){
             int cnt = 0;
@@ -68,5 +100,5 @@ public class 가르침 {
                 visitied[i] = false;
             }
         }
-    }
+    }*/
 }
