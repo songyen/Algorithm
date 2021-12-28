@@ -1,4 +1,4 @@
-package 구현;
+package Greedy;
 
 import java.io.BufferedReader;
 import java.io.IOException;
