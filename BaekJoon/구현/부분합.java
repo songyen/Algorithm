@@ -10,42 +10,23 @@ public class 부분합 {
         int N = Integer.parseInt(st.nextToken());
         int S = Integer.parseInt(st.nextToken());
         st = new StringTokenizer(br.readLine());
-        int[] arr = new int[N];
+        int[] arr = new int[N+1];
         for(int i=0;i<N;i++){
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        int[] len = new int[N];
+        int min = Integer.MAX_VALUE;
+        int start = 0;
         int end = 0;
         int sum = 0;
-        for(int i=0;i<N;i++){
-            if(i==0) sum = arr[i];
-            else sum -= arr[i-1];
-            if(sum>=S){
-                len[i] = end-i+1;
-                continue;
-            }
-            for(int j=end+1;j<N;j++){
-                sum+= arr[j];
-                if(sum>=S) {
-                    end=j;
-                    break;
-                }
-            }
-            if(sum<S){
-                len[i] = 0;
-                break;
-            }
-            else len[i] = end-i+1;
+        while(start <= N && end <= N) {
+            if(sum >= S && min > end - start) min = end - start;
+
+            if(sum < S) sum += arr[end++];
+            else sum -= arr[start++];
         }
 
-        int result = Integer.MAX_VALUE;
-        for(int i=0;i<N;i++){
-            if(len[i]!=0 && len[i]<result) result = len[i];
-            System.out.print(len[i]+" ");
-        }
-        System.out.println();
-        if(result==Integer.MAX_VALUE) System.out.println("0");
-        else System.out.println(result);
+        if(min==Integer.MAX_VALUE) System.out.println("0");
+        else System.out.println(min);
     }
 }
