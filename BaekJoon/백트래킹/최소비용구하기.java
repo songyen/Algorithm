@@ -3,18 +3,14 @@ package 백트래킹;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class 최소비용구하기 {
     private static int min = Integer.MAX_VALUE;
-    private static int end;
     private static ArrayList<Bus>[] arr;
     private static boolean[] visited;
+    private static int[] dis;
     public static void main(String[] args) throws IOException {
-        long startTime = System.currentTimeMillis();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         int M = Integer.parseInt(br.readLine());
@@ -24,6 +20,8 @@ public class 최소비용구하기 {
             arr[i] = new ArrayList<>();
         }
         visited = new boolean[N+1];
+        dis = new int[N+1];
+        Arrays.fill(dis, Integer.MAX_VALUE);
         for(int i=0;i<M;i++){
             st = new StringTokenizer(br.readLine());
             int start = Integer.parseInt(st.nextToken());
@@ -31,33 +29,33 @@ public class 최소비용구하기 {
             int cost = Integer.parseInt(st.nextToken());
             arr[start].add(new Bus(end, cost));
         }
-//        for(int i=1;i<=N;i++){
-//            if(!arr[i].isEmpty()) Collections.sort(arr[i]);
-//        }
         st = new StringTokenizer(br.readLine());
         int start = Integer.parseInt(st.nextToken());
-        end = Integer.parseInt(st.nextToken());
-        visited[start] = true;
-        dfs(start, 0);
-        long end = System.currentTimeMillis();
-        System.out.println("실행시간: "+(end-startTime)/1000.0);
-        System.out.println(min);
+        int end = Integer.parseInt(st.nextToken());
+        System.out.println(dijkstra(start, end));
+        br.close();
     }
 
-    public static void dfs(int start, int cost){
-        if(start==end) {
-            min = Math.min(min, cost);
-            return;
-        }
+    public static int dijkstra(int start, int end){
+        PriorityQueue<Bus> pq = new PriorityQueue<>();
+        pq.offer(new Bus(start, 0));
+        dis[start] = 0;
 
-        for(Bus bus : arr[start]){
-            if(min<=cost+bus.cost) continue;
+        while(!pq.isEmpty()){
+            Bus bus = pq.poll();
+
             if(!visited[bus.end]){
-                visited[end] = true;
-                dfs(bus.end, cost+bus.cost);
-                visited[end] = false;
+                visited[bus.end] = true;
+
+                for(Bus next : arr[bus.end]){
+                    if(!visited[next.end] && dis[next.end]>dis[bus.end]+next.cost){
+                        dis[next.end] = dis[bus.end]+next.cost;
+                        pq.add(new Bus(next.end, dis[next.end]));
+                    }
+                }
             }
         }
+        return dis[end];
     }
 
     public static class Bus implements Comparable<Bus> {
