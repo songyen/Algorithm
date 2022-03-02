@@ -1,4 +1,4 @@
-package 백트래킹;
+package 그래프탐색;
 
 import java.io.BufferedReader;
 import java.io.IOException;
