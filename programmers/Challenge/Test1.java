@@ -7,39 +7,47 @@ import java.util.HashMap;
 
 public class Test1 {
     public static void main(String[] args) {
-        System.out.println(solution("23four5six7"));
+        System.out.println(Test1.solution(4, new int[][]{{2,3},{0,1},{1,2}}));
     }
-    public static int solution(String s) {
-        HashMap<String, Integer> numToString = new HashMap<>();
-        int num = 0;
-        numToString.put("zero", num++);
-        numToString.put("one", num++);
-        numToString.put("two", num++);
-        numToString.put("three", num++);
-        numToString.put("four", num++);
-        numToString.put("five", num++);
-        numToString.put("six", num++);
-        numToString.put("seven", num++);
-        numToString.put("eight", num++);
-        numToString.put("nine", num++);
-
-        String result = "";
-        StringBuilder sb = new StringBuilder();
-        String key = "";
-        for(int i=0;i<s.length();i++){
-            if(String.valueOf(s.charAt(i)).matches("[0-9]")){
-                result += s.charAt(i);
-            }else{
-                sb.append(s.charAt(i));
-                if(numToString.containsKey(sb.toString())){
-                    key = sb.toString();
-                    s.replace(key, Integer.toString(numToString.get(key)));
-                    result += Integer.toString(numToString.get(key));
-                    sb = new StringBuilder();
+    private static int[] parent;
+    public static long solution(int n, int[][] edges) {
+        parent = new int[n];
+        for(int i=0;i<n;i++){
+            parent[i] = i;
+        }
+        for(int i=0;i<edges.length;i++){
+            parent[edges[i][1]] = edges[i][0];
+        }
+        long answer = 0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(j!=i){
+                    int itoJ = find(i,j); //distance(i,j)
+                    for(int k=0;k<n;k++){
+                        if(k!=i && k!=j){
+                            int jtoK = find(j,k); //distance(j,k)
+                            int itoK = find(i,k); //distance(i,k)
+                            if(itoJ + jtoK != itoK) continue;
+                            else{
+                                answer++;
+                            }
+                        }
+                    }
                 }
             }
         }
-
-        return Integer.parseInt(result);
+        return answer;
+    }
+    public static int find(int x, int y){
+        int cnt = 1;
+        while(parent[y]!=x){
+            if(parent[y]==y) break;
+            y = parent[y];
+            cnt++;
+        }
+        if(parent[y]==y){
+            find(y,x);
+        }
+        return cnt;
     }
 }
