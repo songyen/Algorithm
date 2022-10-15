@@ -7,16 +7,17 @@ import java.io.InputStreamReader;
 public class 최댓값 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int maxNum = Integer.parseInt(br.readLine());
-        int maxIdx = 1;
-        for(int i=2;i<=9;i++){
+        int max = Integer.MIN_VALUE;
+        int idx = 0;
+        for(int i=0;i<9;i++){
             int num = Integer.parseInt(br.readLine());
-            if(maxNum<num) {
-                maxNum = num;
-                maxIdx = i;
+            if(max<num){
+                max = num;
+                idx = i;
             }
         }
-        System.out.println(maxNum);
-        System.out.println(maxIdx);
+        br.close();
+        System.out.println(max);
+        System.out.println(idx);
     }
 }
