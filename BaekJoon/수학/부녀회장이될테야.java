@@ -3,7 +3,6 @@ package 수학;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
 public class 부녀회장이될테야 {
     public static int[][] arr = new int[15][14];
