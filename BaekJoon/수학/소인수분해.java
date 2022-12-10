@@ -15,7 +15,7 @@ public class 소인수분해 {
                 result.add(i);
             }
         }
-        result.sort(Comparator.comparingInt(o -> o));
+        if(N!=1) result.add(N);
         for(int i : result){
             System.out.println(i);
         }
