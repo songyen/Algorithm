@@ -1,4 +1,4 @@
-package 정렬;
+package 재귀;
 
 import java.util.Scanner;
 
